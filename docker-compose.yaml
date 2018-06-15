@@ -1,19 +1,18 @@
 version: '3'
 services:
-
-  # The Application
   confluence:
     build:
       context: ./
       dockerfile: confluence.dockerfile
     container_name: confluence
     volumes:
-      - ./data/:/var/atlassian/application-data/confluence
+      - confluence_data:/var/atlassian/application-data/confluence
     ports:
         - "8090:8090"
         - "8091:8091"
   postgresql:
     image: postgres:9.6
+    restart: always
     container_name: confluence_postgres
     environment:
       - "POSTGRES_USER=confluence"
@@ -21,3 +20,12 @@ services:
       - "POSTGRES_DB=confluence"
     ports:
       - "5432:5432"
+    volumes: pgdata:/var/lib/postgresql/data
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080
+volumes:
+  pgdata:
+  confluence_data:
