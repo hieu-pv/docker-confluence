@@ -4,7 +4,11 @@
 docker-compose up -d
 ```
 
-### Step 2: Access to localhost:8080, follow installation process and copy your Server ID, stop on "License Activation Screen"
+### Step 2: Get your Server ID
+
+Access to http://localhost:8080 then follow installation process, you can see your `Server ID` after few steps
+
+### Step 3: Get your decoder file
 
 Copy decoder file from container, xxx is version of decoder file
 
@@ -12,14 +16,14 @@ Copy decoder file from container, xxx is version of decoder file
 docker cp confluence:/opt/atlassian/confluence/confluence/WEB-INF/lib/atlassian-extras-decoder-xxx.jar /local/folder/
 ```
 
-### Step 3: Rename decoder file
+### Step 4: Rename decoder file
 > We need this file to generate license key, now keygen work on windows system only so you have to download this file to local device to generate license
 
 ```
 atlassian-extras-2.4.jar
 ```
 
-### Step 4: Access container with root user and rename / remove decoder file 
+### Step 5: Access container with root user and rename / remove decoder file 
 
 ```
 docker exec -it -u 0 {CONTAINER_ID} bash
@@ -31,7 +35,7 @@ then
 mv /opt/atlassian/confluence/confluence/WEB-INF/lib/atlassian-extras-decoder-xxx.jar /opt/atlassian/confluence/confluence/WEB-INF/lib/atlassian-extras-decoder-xxx.jar.bak
 ```
 
-### Step 5: Path decoder file with keygen 
+### Step 6: Path decoder file with keygen 
 
 Run keygen (on local windows device) by following command 
 
@@ -45,19 +49,19 @@ Run keygen (on local windows device) by following command
 java -jar confluence_keygen.jar
 ```
 
-### Step 6: Change decoder file name back to original
+### Step 7: Change decoder file name back to original
 
 Keygen will update your decoder file, you need to save new decoder file to its location inside container
 
-### Step 7: Move new decoder file back to container 
+### Step 8: Move new decoder file back to container 
 
 ```
 docker cp /local/folder/atlassian-extras-decoder-xxx.jar confluence:/opt/atlassian/confluence/confluence/WEB-INF/lib/
 ```
 
-### Step 8: Restart container and setup confluence 
+### Step 9: Restart container and setup confluence 
 ```
 docker-compose restart
 ```
 
-### Step 9: Continue installation instruction with generated key
+### Step 10: Continue installation instruction with generated key
