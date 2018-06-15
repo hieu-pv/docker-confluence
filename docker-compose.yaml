@@ -1,15 +1,39 @@
-version: '3'
+version: '2'
 services:
+
+  nginx:
+    build: ./docker/nginx
+      image: nginx:0.1
+      container_name: nginx
+      networks:
+        vmms_network:
+          ipv4_address: 172.20.0.4
+      ports:
+        - '80:80'
+        - '443:443'
+      networks: 
+        vicoders: 
+          ipv4_address: 172.20.0.4
+      volumes:
+        #nginx conf
+        - ./etc/nginx/conf.d:/etc/nginx/conf.d
+        restart: always
+
   confluence:
     build:
       context: ./
       dockerfile: confluence.dockerfile
     container_name: confluence
+    networks: 
+      vicoders: 
+        ipv4_address: 172.20.0.5
+
     volumes:
       - confluence_data:/var/atlassian/application-data/confluence
     ports:
         - "8090:8090"
         - "8091:8091"
+
   postgresql:
     image: postgres:9.6
     restart: always
@@ -18,15 +42,28 @@ services:
       - "POSTGRES_USER=confluence"
       - "POSTGRES_PASSWORD=secret"
       - "POSTGRES_DB=confluence"
+
+    networks: 
+      vicoders: 
+        ipv4_address: 172.20.0.6
+
     ports:
       - "5432:5432"
     volumes: 
       - pgdata:/var/lib/postgresql/data
+
   adminer:
     image: adminer
     restart: always
     ports:
       - "9080:8080"
+
 volumes:
   confluence_data:
   pgdata:
+
+networks:
+  vicoders:
+    ipam:
+      config:
+        -subnet: 172.20.0.0/16
