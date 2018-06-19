@@ -24,7 +24,7 @@ services:
         ipv4_address: 172.20.0.5
 
     volumes:
-      - ./var/confluence_data:/var/atlassian/application-data/confluence
+      - confluence_data:/var/atlassian/application-data/confluence
     ports:
         - "8090:8090"
         - "8091:8091"
@@ -45,7 +45,7 @@ services:
     ports:
       - "5432:5432"
     volumes: 
-      - ./var/pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
 
   adminer:
     image: adminer
@@ -58,3 +58,6 @@ networks:
     ipam:
       config:
       - subnet: 172.20.0.0/16
+volumes:
+  confluence_data:
+  pgdata:

@@ -1,4 +1,12 @@
 docker cp confluence:/opt/atlassian/confluence/confluence/WEB-INF/lib/atlassian-extras-decoder-v2-3.3.0.jar ./crack/atlassian-extras-2.4.jar
 
+mv /opt/atlassian/confluence/confluence/WEB-INF/lib/atlassian-extras-decoder-v2-3.3.0.jar /opt/atlassian/confluence/confluence/WEB-INF/lib/atlassian-extras-decoder-v2-3.3.0.jar.bak
+
 docker cp ./crack/atlassian-extras-2.4.jar confluence:/opt/atlassian/confluence/confluence/WEB-INF/lib/atlassian-extras-decoder-v2-3.3.0.jar
 
+ssh root@149.28.159.114
+
+Tz{4YH+4qXF4u3NS
+
+scp root@149.28.159.114:/home/docker/docker-confluence/crack/atlassian-extras-2.4.jar /mnt/c/Users/hieup/Data/Projects/build
+scp /mnt/c/Users/hieup/Data/Projects/build/atlassian-extras-2.4.jar root@149.28.159.114:/home/docker/docker-confluence/crack/atlassian-extras-decoder-v2-3.3.0.jar
