@@ -19,9 +19,9 @@ services:
   confluence:
     build: ./docker/confluence
     container_name: confluence
-    # networks: 
-    #   vicoders: 
-    #     ipv4_address: 172.20.0.5
+    networks: 
+      vicoders: 
+        ipv4_address: 172.20.0.5
 
     volumes:
       - confluence_data:/var/atlassian/application-data/confluence
