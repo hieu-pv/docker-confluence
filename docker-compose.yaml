@@ -6,14 +6,11 @@ services:
       image: nginx:0.1
       container_name: nginx
       networks:
-        vmms_network:
+        vicoders:
           ipv4_address: 172.20.0.4
       ports:
         - '80:80'
         - '443:443'
-      networks: 
-        vicoders: 
-          ipv4_address: 172.20.0.4
       volumes:
         #nginx conf
         - ./etc/nginx/conf.d:/etc/nginx/conf.d
