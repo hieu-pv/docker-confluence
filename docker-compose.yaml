@@ -25,7 +25,7 @@ services:
         - traefik.webservice.frontend.entryPoints=https
   postgresql:
     image: postgres:9.6
-    restart: always
+    # restart: always
     # container_name: confluence_postgres
     environment:
       - "POSTGRES_USER=confluence"
@@ -37,7 +37,7 @@ services:
       - pgdata:/var/lib/postgresql/data
   adminer:
     image: adminer
-    restart: always
+    # restart: always
     deploy:
       labels:
         - traefik.frontend.rule=Host:adminer.${DOMAIN?Variable DOMAIN not set}
@@ -60,7 +60,7 @@ services:
   #     - "443:443"
   #   volumes:
   #     - ./etc/nginx/conf.d:/etc/nginx/conf.d
-  #   restart: always
+    restart: always
 volumes:
   confluence_data:
   pgdata:
