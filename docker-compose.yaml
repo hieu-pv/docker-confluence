@@ -1,8 +1,7 @@
 version: '3'
 services:
   confluence:
-    build:
-      context: ./docker/confluence/
+    image: atlassian/confluence-server
     # container_name: confluence
     volumes:
       - confluence_data:/var/atlassian/application-data/confluence
