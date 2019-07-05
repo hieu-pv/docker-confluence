@@ -3,7 +3,7 @@ services:
   confluence:
     build:
       context: ./docker/confluence/
-    container_name: confluence
+    # container_name: confluence
     volumes:
       - confluence_data:/var/atlassian/application-data/confluence
     # ports:
@@ -26,7 +26,7 @@ services:
   postgresql:
     image: postgres:9.6
     restart: always
-    container_name: confluence_postgres
+    # container_name: confluence_postgres
     environment:
       - "POSTGRES_USER=confluence"
       - "POSTGRES_PASSWORD=secret"
