@@ -5,7 +5,7 @@ services:
     # container_name: confluence
     volumes:
       - confluence_data:/var/atlassian/application-data/confluence
-      - /home/docker-confluence/opt/atlassian/confluence/confluence/WEB-INF/lib/atlassian-extras-decoder-v2-3.3.0.jar:/opt/atlassian/confluence/confluence/WEB-INF/lib/atlassian-extras-decoder-v2-3.3.0.jar
+      - confluence_opt_lib:/opt/atlassian/confluence/confluence/WEB-INF/lib
     # ports:
     #     - "8090:8090"
     #     - "8091:8091"
@@ -63,6 +63,7 @@ services:
     restart: always
 volumes:
   confluence_data:
+  confluence_opt_lib:
   pgdata:
 networks:
   traefik-public:
