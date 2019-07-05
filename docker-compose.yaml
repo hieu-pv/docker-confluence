@@ -6,9 +6,23 @@ services:
     container_name: confluence
     volumes:
       - confluence_data:/var/atlassian/application-data/confluence
-    ports:
-        - "8090:8090"
-        - "8091:8091"
+    # ports:
+    #     - "8090:8090"
+    #     - "8091:8091"
+    networks:
+      - traefik-public
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:${DOMAIN?Variable DOMAIN not set}
+        - traefik.enable=true
+        - traefik.port=8090
+        - traefik.tags=${TRAEFIK_PUBLIC_TAG:-traefik-public}
+        - traefik.docker.network=traefik-public
+        # Traefik service that listens to HTTP
+        - traefik.redirectorservice.frontend.entryPoints=http
+        - traefik.redirectorservice.frontend.redirect.entryPoint=https
+        # Traefik service that listens to HTTPS
+        - traefik.webservice.frontend.entryPoints=https
   postgresql:
     image: postgres:9.6
     restart: always
@@ -17,25 +31,39 @@ services:
       - "POSTGRES_USER=confluence"
       - "POSTGRES_PASSWORD=secret"
       - "POSTGRES_DB=confluence"
-    ports:
-      - "5432:5432"
+    # ports:
+    #   - "5432:5432"
     volumes: 
       - pgdata:/var/lib/postgresql/data
   adminer:
     image: adminer
     restart: always
-    ports:
-      - "9080:8080"
-  nginx:
-    build: ./docker/confluence/
-    image: nginx:0.1
-    container_name: nginx
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./etc/nginx/conf.d:/etc/nginx/conf.d
-    restart: always
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:adminer.${DOMAIN?Variable DOMAIN not set}
+        - traefik.enable=true
+        - traefik.port=8080
+        - traefik.tags=${TRAEFIK_PUBLIC_TAG:-traefik-public}
+        - traefik.docker.network=traefik-public
+        # Traefik service that listens to HTTP
+        - traefik.redirectorservice.frontend.entryPoints=http
+        - traefik.redirectorservice.frontend.redirect.entryPoint=https
+        # Traefik service that listens to HTTPS
+        - traefik.webservice.frontend.entryPoints=https
+        - traefik.frontend.auth.basic.users=${USERNAME?Variable USERNAME not set}:${HASHED_PASSWORD?Variable HASHED_PASSWORD not set}
+  # nginx:
+  #   build: ./docker/confluence/
+  #   image: nginx:0.1
+  #   container_name: nginx
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./etc/nginx/conf.d:/etc/nginx/conf.d
+  #   restart: always
 volumes:
   confluence_data:
   pgdata:
+networks:
+  traefik-public:
+    external: true
