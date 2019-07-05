@@ -5,6 +5,7 @@ services:
     # container_name: confluence
     volumes:
       - confluence_data:/var/atlassian/application-data/confluence
+      - /home/docker-confluence/opt/atlassian/confluence/confluence/WEB-INF/lib/atlassian-extras-decoder-v2-3.3.0.jar:/opt/atlassian/confluence/confluence/WEB-INF/lib/atlassian-extras-decoder-v2-3.3.0.jar
     # ports:
     #     - "8090:8090"
     #     - "8091:8091"
