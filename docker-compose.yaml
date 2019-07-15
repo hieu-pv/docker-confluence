@@ -32,9 +32,9 @@ services:
     # restart: always
     # container_name: confluence_postgres
     environment:
-      - "POSTGRES_USER=confluence"
-      - "POSTGRES_PASSWORD=secret"
-      - "POSTGRES_DB=confluence"
+      - "POSTGRES_USER=${POSTGRES_USER:-confluence}"
+      - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-secret}"
+      - "POSTGRES_DB=${POSTGRES_DB:-confluence}"
     networks:
       - default
     # ports:
