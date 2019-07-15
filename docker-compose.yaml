@@ -46,6 +46,8 @@ services:
     networks:
       - default
       - traefik-public
+    links:
+      - postgresql
     deploy:
       labels:
         - traefik.frontend.rule=Host:adminer.${DOMAIN?Variable DOMAIN not set}
