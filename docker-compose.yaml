@@ -1,8 +1,8 @@
 version: '3'
 services:
   confluence:
-    image: atlassian/confluence-server:6.9.1-alpine
-    # image: atlassian/confluence-server:6.13-alpine
+    # image: atlassian/confluence-server:6.9.1-alpine
+    image: atlassian/confluence-server:6.13-alpine
     # container_name: confluence
     volumes:
       - confluence_data:/var/atlassian/application-data/confluence
