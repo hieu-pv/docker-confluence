@@ -7,6 +7,7 @@ services:
     volumes:
       - confluence_data:/var/atlassian/application-data/confluence
       - confluence_opt_lib:/opt/atlassian/confluence/confluence/WEB-INF/lib
+      - confluence_opt_conf:/opt/atlassian/confluence/conf
     # ports:
     #     - "8090:8090"
     #     - "8091:8091"
@@ -65,6 +66,7 @@ services:
 volumes:
   confluence_data:
   confluence_opt_lib:
+  confluence_opt_conf:
   pgdata:
 networks:
   traefik-public:
